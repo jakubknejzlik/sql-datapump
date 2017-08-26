@@ -16,4 +16,5 @@ transfer(event)
   })
   .catch(err => {
     console.log(`failed to transfer data ${err.message}`);
+    process.exit(1);
   });

@@ -14,7 +14,9 @@ let createArray = n => {
 
 exports.prepare = () => {
   let connection = Promise.promisifyAll(
-    mysql.createConnection("mysql://root:test@localhost/test?multipleStatements=1")
+    mysql.createConnection(
+      "mysql://root:test@localhost/test?multipleStatements=1"
+    )
   );
 
   let sql = fs.readFileSync(__dirname + "/fixtures.sql", "utf-8");
@@ -33,7 +35,9 @@ exports.prepare = () => {
             );
           }
 
-          let insert = "INSERT INTO `users` (`username`,`firstname`,`lastname`,`birthdate`) VALUES " + values.join(",");
+          let insert =
+            "INSERT INTO `users` (`username`,`firstname`,`lastname`,`birthdate`) VALUES " +
+            values.join(",");
           return connection.queryAsync(insert);
         },
         { concurrency: 5 }
@@ -46,7 +50,8 @@ exports.prepare = () => {
         values.push(`('my car ${i}','chevy ${i}')`);
       }
 
-      let insert = "INSERT INTO `cars` (`name`,`brand`) VALUES " + values.join(",");
+      let insert =
+        "INSERT INTO `cars` (`name`,`brand`) VALUES " + values.join(",");
       return connection.queryAsync(insert);
     });
 };

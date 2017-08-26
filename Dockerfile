@@ -1,4 +1,4 @@
-FROM node
+FROM node:alpine
 
 ENV SOURCE_URL mysql://root:test@localhost/test
 ENV SOURCE_QUERY stable
