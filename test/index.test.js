@@ -104,6 +104,7 @@ describe("handler", () => {
       "blahfoo",
       err => {
         assert.ok(err.message.indexOf("ER_NO_SUCH_TABLE:") !== -1);
+        done();
       }
     );
   });
