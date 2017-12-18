@@ -16,7 +16,8 @@ let pipeInTestDB = (select, table, callback) => {
   });
   let write = mysqlStreams.createWriteStream({
     connectionUrl: "mysql://root:test@localhost/test",
-    table: table
+    table: table,
+    maxSQLRetries: 1
   });
 
   write.on("finish", function() {
@@ -93,6 +94,16 @@ describe("handler", () => {
       err => {
         assert.ok(!err, "did fail with error " + (err ? err.message : ""));
         checkTableEquality("cars", "anothercars", done);
+      }
+    );
+  });
+
+  it("should fail to insert to nonexisting table", done => {
+    pipeInTestDB(
+      "SELECT name as name2, brand as branding FROM cars",
+      "blahfoo",
+      err => {
+        assert.ok(err.message.indexOf("ER_NO_SUCH_TABLE:") !== -1);
       }
     );
   });
