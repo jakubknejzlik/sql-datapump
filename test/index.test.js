@@ -119,9 +119,9 @@ describe('handler', () => {
     );
   });
 
-  it.only('should use csv as data source', () => {
+  it('should use csv as data source', () => {
     return handler({
-      sourceUrl: 'csv://' + __dirname + '/users.csv',
+      sourceUrl: 'csv://' + __dirname + '/test.csv',
       destinationUrl: 'mysql://root:test@localhost/test',
       destinationTable: 'users2'
     })
