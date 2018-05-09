@@ -1,7 +1,7 @@
 version: '2'
 services:
   mysql:
-    image: mysql
+    image: mariadb:10.3.2
     environment:
       MYSQL_ROOT_PASSWORD: test
       MYSQL_DATABASE: test
