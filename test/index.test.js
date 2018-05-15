@@ -11,11 +11,11 @@ const fixtures = require('./fixtures');
 
 let pipeInTestDB = (select, table, callback) => {
   let read = mysqlStreams.createReadStream({
-    connectionUrl: 'mysql://root:test@localhost/test',
+    url: 'mysql://root:test@localhost/test',
     sql: select
   });
   let write = mysqlStreams.createWriteStream({
-    connectionUrl: 'mysql://root:test@localhost/test',
+    url: 'mysql://root:test@localhost/test',
     table: table,
     maxSQLRetries: 1
   });
@@ -121,7 +121,8 @@ describe('handler', () => {
 
   it('should use csv as data source', () => {
     return handler({
-      sourceUrl: 'csv://' + __dirname + '/test.csv',
+      sourceUrl: 'csv://' + __dirname + '/users.csv',
+      sourceMapping: 'username=user',
       destinationUrl: 'mysql://root:test@localhost/test',
       destinationTable: 'users2'
     })
